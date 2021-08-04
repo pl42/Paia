@@ -1,7 +1,7 @@
 package peggy42.cn.gasprovider;
 
 import peggy42.cn.contractneedsprovider.Web3jProvider;
-import peggy42.cn.oasisdex.OasisDexContract;
+import peggy42.cn.oasis.OasisContract;
 import peggy42.cn.util.JavaProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,13 +57,13 @@ public class GasProviderIT {
   @Test
   public void getGasLimit_someFunction_returnInRealisticBounds() {
     GasProvider gasProvider = new GasProvider(web3j, MINIMUM_GAS_PRICE, MAXIMUM_GAS_PRICE);
-    assertEquals(BigInteger.valueOf(300_000), gasProvider.getGasLimit(OasisDexContract.FUNC_BUY));
+    assertEquals(BigInteger.valueOf(300_000), gasProvider.getGasLimit(OasisContract.FUNC_BUY));
   }
 
   @Test
   public void getGasPrice_someFunction_returnInRealisticBounds() {
     GasProvider gasProvider = new GasProvider(web3j, MINIMUM_GAS_PRICE, MAXIMUM_GAS_PRICE);
-    BigInteger actual = gasProvider.getGasPrice(OasisDexContract.FUNC_BUY);
+    BigInteger actual = gasProvider.getGasPrice(OasisContract.FUNC_BUY);
     assertTrue(MINIMUM_GAS_PRICE.compareTo(actual) <= 0, TOO_LOW);
     assertTrue(MAXIMUM_GAS_PRICE.compareTo(actual) >= 0, TOO_HIGH);
   }
