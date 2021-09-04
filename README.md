@@ -1,4 +1,4 @@
-# paia [![Build Status](https://travis-ci.com/PL42/paia.svg?branch=master)](https://travis-ci.com/PL42/paia)
+# paia [![Build Status](https://travis-ci.com/PL42/paia.svg?branch=master)](https://travis-ci.com/PL42/paia) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=PL42_paia&metric=coverage)](https://sonarcloud.io/dashboard?id=PL42_paia)
 
 paia is an application that aims to do beneficial actions on the Ethereum blockchain for the DeFi ecosystem while earning a profit for the user. These actions include maintaining the DAI peg, providing liquidity and liquidating undercollateralized assets.
 
