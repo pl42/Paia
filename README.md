@@ -21,7 +21,7 @@ paia is an application that aims to do beneficial actions on the Ethereum blockc
 
 ```
 infuraProjectId=
-myEthereumAddress=
+wallet=
 password=
 transactionsRequireConfirmation=true
 playSoundOnTransaction=true
