@@ -4,13 +4,10 @@ import peggy42.cn.contractneedsprovider.*;
 import peggy42.cn.gasprovider.GasProvider;
 import peggy42.cn.util.JavaProperties;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 
 import java.math.BigInteger;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class DaiIT {
   private static final String TRAVIS_INFURA_PROJECT_ID = "TRAVIS_INFURA_PROJECT_ID";
@@ -48,12 +45,4 @@ public class DaiIT {
         new ContractNeedsProvider(web3j, credentials, gasProvider, permissions, circuitBreaker);
     dai = new Dai(contractNeedsProvider);
   }
-
-  @Test
-  public void isContractValid_isValid_continueRunning() {
-    assertDoesNotThrow(() -> dai.isContractValid());
-  }
-
-  @Test
-  public void isContractValid_isNotValid_stopRunning() {}
 }
