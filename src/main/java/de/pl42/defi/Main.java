@@ -3,6 +3,7 @@ package peggy42.cn;
 import peggy42.cn.compounddai.CompoundDai;
 import peggy42.cn.contractneedsprovider.*;
 import peggy42.cn.dai.Dai;
+import peggy42.cn.flipper.Flipper;
 import peggy42.cn.gasprovider.GasProvider;
 import peggy42.cn.medianizer.Medianizer;
 import peggy42.cn.oasis.Oasis;
@@ -57,6 +58,7 @@ public class Main {
 
     Oasis oasis = new Oasis(contractNeedsProvider, compoundDai, weth);
     Uniswap uniswap = new Uniswap(contractNeedsProvider, javaProperties, compoundDai, weth);
+    Flipper flipper = new Flipper(contractNeedsProvider);
 
     dai.checkApproval(uniswap);
     dai.checkApproval(oasis);
@@ -72,6 +74,7 @@ public class Main {
         uniswap.checkIfSellDaiIsProfitableThenDoIt(balances);
         uniswap.checkIfBuyDaiIsProfitableThenDoIt(balances);
         compoundDai.lendDai(balances);
+        flipper.checkIfThereAreProfitableFlipAuctions(balances);
       }
 
       List<Long> failedTransactions = circuitBreaker.getFailedTransactions();
