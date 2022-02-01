@@ -1,12 +1,12 @@
 package peggy42.cn.uniswap;
 
-import java.math.BigInteger;
+import peggy42.cn.numberutil.Wad18;
 
 public class UniswapOffer {
-  public final BigInteger buyableAmount;
-  public final BigInteger profit;
+  public final Wad18 buyableAmount;
+  public final Wad18 profit;
 
-  public UniswapOffer(BigInteger buyableAmount, BigInteger profit) {
+  public UniswapOffer(Wad18 buyableAmount, Wad18 profit) {
     this.buyableAmount = buyableAmount;
     this.profit = profit;
   }

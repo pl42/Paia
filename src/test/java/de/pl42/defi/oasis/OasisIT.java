@@ -4,6 +4,7 @@ import peggy42.cn.compounddai.CompoundDai;
 import peggy42.cn.contractneedsprovider.*;
 import peggy42.cn.dai.Dai;
 import peggy42.cn.gasprovider.GasProvider;
+import peggy42.cn.numberutil.Wad18;
 import peggy42.cn.util.JavaProperties;
 import peggy42.cn.weth.Weth;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +21,8 @@ public class OasisIT {
   private static final String TRAVIS_WALLET = "TRAVIS_WALLET";
   private static final String TRAVIS_PASSWORD = "TRAVIS_PASSWORD";
 
-  private static final BigInteger minimumGasPrice = BigInteger.valueOf(1_000000000);
-  private static final BigInteger maximumGasPrice = BigInteger.valueOf(200_000000000L);
+  private static final Wad18 minimumGasPrice = new Wad18(1_000000000);
+  private static final Wad18 maximumGasPrice = new Wad18(200_000000000L);
 
   Oasis oasis;
 
@@ -58,22 +59,22 @@ public class OasisIT {
   @Test
   public void getOffer_nonExistingOffer_DaiOrWethMissingException() {
     Exception exception =
-        assertThrows(DaiOrWethMissingException.class, () -> oasis.getOffer(BigInteger.ZERO));
+            assertThrows(DaiOrWethMissingException.class, () -> oasis.getOffer(new Wad18(0)));
     String actualMessage = exception.getMessage();
     assertTrue(actualMessage.contains("BOTH DAI AND WETH NEED TO BE PRESENT ONCE."));
   }
 
   @Test
   public void getBestOffer_buyDai_returnOffer() {
-    BigInteger actual = oasis.getBestOffer(Dai.ADDRESS, Weth.ADDRESS);
-    assertNotEquals(BigInteger.ZERO, actual);
+    Wad18 actual = oasis.getBestOffer(Dai.ADDRESS, Weth.ADDRESS);
+    assertNotEquals(BigInteger.ZERO, actual.toBigInteger());
     assertNotNull(actual);
   }
 
   @Test
   public void getBestOffer_sellDai_returnOffer() {
-    BigInteger actual = oasis.getBestOffer(Weth.ADDRESS, Dai.ADDRESS);
-    assertNotEquals(BigInteger.ZERO, actual);
+    Wad18 actual = oasis.getBestOffer(Weth.ADDRESS, Dai.ADDRESS);
+    assertNotEquals(BigInteger.ZERO, actual.toBigInteger());
     assertNotNull(actual);
   }
 
