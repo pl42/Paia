@@ -2,11 +2,15 @@ package peggy42.cn.compounddai;
 
 import peggy42.cn.contractneedsprovider.*;
 import peggy42.cn.gasprovider.GasProvider;
+import peggy42.cn.numberutil.Sth28;
 import peggy42.cn.numberutil.Wad18;
 import peggy42.cn.util.JavaProperties;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CompoundDaiIT {
   private static final String TRAVIS_INFURA_PROJECT_ID = "TRAVIS_INFURA_PROJECT_ID";
@@ -41,7 +45,14 @@ class CompoundDaiIT {
     GasProvider gasProvider = new GasProvider(web3j, minimumGasPrice, maximumGasPrice);
     Permissions permissions = new Permissions(true, true);
     ContractNeedsProvider contractNeedsProvider =
-        new ContractNeedsProvider(web3j, credentials, gasProvider, permissions, circuitBreaker);
+            new ContractNeedsProvider(web3j, credentials, gasProvider, permissions, circuitBreaker);
     compoundDai = new CompoundDai(contractNeedsProvider);
+  }
+
+  @Test
+  void getExchangeRate_isBiggerThanHistoricRate_true() {
+    Sth28 exchangeRate = compoundDai.getExchangeRate();
+    Sth28 expected = new Sth28("204721828221871910000000000");
+    assertTrue(exchangeRate.compareTo(expected) > 0);
   }
 }
